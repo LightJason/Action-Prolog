@@ -36,6 +36,10 @@ import org.lightjason.agentspeak.language.ITerm;
 import org.lightjason.agentspeak.language.execution.CContext;
 import org.lightjason.agentspeak.language.execution.IContext;
 import org.lightjason.agentspeak.language.execution.instantiable.plan.IPlan;
+import org.lightjason.agentspeak.language.execution.instantiable.plan.statistic.CPlanStatistic;
+import org.lightjason.agentspeak.language.execution.instantiable.plan.trigger.CTrigger;
+import org.lightjason.agentspeak.language.execution.instantiable.plan.trigger.ITrigger;
+import org.lightjason.agentspeak.language.variable.CVariable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -188,5 +192,70 @@ public final class TestCActionProlog extends IBaseTest
         Assert.assertEquals( 1, l_return.size() );
         Assert.assertEquals( 8.0, l_return.get( 0 ).<Number>raw() );
     }
+
+    /**
+     * test plan-theory
+     *
+     * @throws Exception on parsing error
+     */
+    @Test
+    public void plantheory() throws Exception
+    {
+        Assume.assumeNotNull( m_agent, m_context );
+
+        final List<ITerm> l_return = new ArrayList<>();
+
+        m_agent.plans()
+               .put( CTrigger.of( ITrigger.EType.ADDGOAL, CLiteral.parse( "foobar(X)" ) ), CPlanStatistic.of( IPlan.EMPTY ) );
+
+        Assert.assertTrue(
+                execute(
+                        new CPlanTheory(),
+                        false,
+                        Collections.emptyList(),
+                        l_return,
+                        m_context
+                )
+        );
+
+        Assert.assertEquals( 1, l_return.size() );
+        Assert.assertEquals( "foobar[X()].", l_return.get( 0 ).raw().toString().trim() );
+    }
+
+    /**
+     * test type convert
+     */
+    @Test
+    public void typeconvert()
+    {
+        Assume.assumeNotNull( m_agent, m_context );
+
+        final List<ITerm> l_return = new ArrayList<>();
+
+        m_agent.beliefbase().add(
+            CLiteral.of( "intdata", CRawTerm.of( 4 ) ),
+            CLiteral.of( "floatdata", CRawTerm.of( 6F ) ),
+            CLiteral.of( "longdata", CRawTerm.of( 8L ) ),
+            CLiteral.of( "doubledata", CRawTerm.of( 10D ) )
+        );
+
+        Assert.assertTrue(
+            execute(
+                new CSolveAll(),
+                false,
+                Stream.of( "intdata(I).", "floatdata(F).", "longdata(L).", "doubledata(D)." ).map( CRawTerm::of ).collect( Collectors.toList() ),
+                l_return,
+                m_context
+            )
+        );
+
+
+        Assert.assertEquals( 4, l_return.size() );
+        Assert.assertEquals( 4.0, l_return.get( 0 ).<Number>raw() );
+        Assert.assertEquals( 6.0, l_return.get( 1 ).<Number>raw() );
+        Assert.assertEquals( 8.0, l_return.get( 2 ).<Number>raw() );
+        Assert.assertEquals( 10.0, l_return.get( 3 ).<Number>raw() );
+    }
+
 
 }
