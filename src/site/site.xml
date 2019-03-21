@@ -29,16 +29,9 @@
     <body>
         <menu ref="modules" />
         <menu ref="reports"/>
-        <menu name="Grammar">
-            <item name="Agent" href="rrd-output/html/org/lightjason/agentspeak/grammar/Agent.g4/"/>
-            <item name="PlanBundle" href="rrd-output/html/org/lightjason/agentspeak/grammar/PlanBundle.g4/"/>
-        </menu>
         <menu name="Source Documentation">
             <item name="Source Documentation" href="sources/"/>
-            <item name="Repository" href="http://github.com/LightJason/AgentSpeak-Java" />
-            <item name="Docker" href="https://hub.docker.com/r/lightjason/agentspeak" />
-            <item name="Coveralls.io" href="https://coveralls.io/github/LightJason/AgentSpeak-Java"/>
-            <item name="Libraries.io" href="https://libraries.io/github/LightJason/AgentSpeak-Java"/>
+            <item name="Repository" href="http://github.com/LightJason/Action-Prolog" />
             <item name="LightJason" href="http://lightjason.org"/>
         </menu>
     </body>
