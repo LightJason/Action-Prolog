@@ -69,6 +69,12 @@ public abstract class IBaseSolve extends IBaseAction
      */
     private static final long serialVersionUID = 316729237221926520L;
 
+    @Override
+    public final int minimalArgumentNumber()
+    {
+        return 1;
+    }
+
     @Nonnull
     @Override
     public final Stream<IFuzzyValue<?>> execute( final boolean p_parallel, @Nonnull final IContext p_context, @Nonnull final List<ITerm> p_argument,

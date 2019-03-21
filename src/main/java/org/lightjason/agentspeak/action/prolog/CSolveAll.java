@@ -63,12 +63,6 @@ public final class CSolveAll extends IBaseSolve
     }
 
     @Override
-    public int minimalArgumentNumber()
-    {
-        return 1;
-    }
-
-    @Override
     protected boolean issuccess( @Nonnull final SolveInfo[] p_solveinfos )
     {
         return Arrays.stream( p_solveinfos ).allMatch( SolveInfo::isSuccess );

@@ -30,6 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.lightjason.agentspeak.IBaseTest;
 import org.lightjason.agentspeak.agent.IAgent;
+import org.lightjason.agentspeak.common.CPath;
 import org.lightjason.agentspeak.language.CLiteral;
 import org.lightjason.agentspeak.language.CRawTerm;
 import org.lightjason.agentspeak.language.ITerm;
@@ -39,7 +40,6 @@ import org.lightjason.agentspeak.language.execution.instantiable.plan.IPlan;
 import org.lightjason.agentspeak.language.execution.instantiable.plan.statistic.CPlanStatistic;
 import org.lightjason.agentspeak.language.execution.instantiable.plan.trigger.CTrigger;
 import org.lightjason.agentspeak.language.execution.instantiable.plan.trigger.ITrigger;
-import org.lightjason.agentspeak.language.variable.CVariable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -257,5 +257,23 @@ public final class TestCActionProlog extends IBaseTest
         Assert.assertEquals( 10.0, l_return.get( 3 ).<Number>raw() );
     }
 
+    /**
+     * test name and arguments
+     */
+    @Test
+    public void namearguments()
+    {
+        Assert.assertEquals( CPath.of( "prolog/plantheory" ), new CPlanTheory().name() );
+        Assert.assertEquals( 0, new CPlanTheory().minimalArgumentNumber() );
+
+        Assert.assertEquals( CPath.of( "prolog/solveall" ), new CSolveAll().name() );
+        Assert.assertEquals( 1, new CSolveAll().minimalArgumentNumber() );
+
+        Assert.assertEquals( CPath.of( "prolog/solveany" ), new CSolveAny().name() );
+        Assert.assertEquals( 1, new CSolveAny().minimalArgumentNumber() );
+
+        Assert.assertEquals( CPath.of( "prolog/theory" ), new CTheory().name() );
+        Assert.assertEquals( 0, new CTheory().minimalArgumentNumber() );
+    }
 
 }
