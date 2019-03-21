@@ -22,16 +22,13 @@
  */
 
 
-package org.lightjason.agentspeak.action;
+package org.lightjason.agentspeak.action.prolog;
 
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.lightjason.agentspeak.IBaseTest;
-import org.lightjason.agentspeak.action.prolog.CSolveAll;
-import org.lightjason.agentspeak.action.prolog.CSolveAny;
-import org.lightjason.agentspeak.action.prolog.CTheory;
 import org.lightjason.agentspeak.agent.IAgent;
 import org.lightjason.agentspeak.language.CLiteral;
 import org.lightjason.agentspeak.language.CRawTerm;
