@@ -1,1 +1,1 @@
-# LightJason - Grid Action
+# LightJason - Prolog Action
