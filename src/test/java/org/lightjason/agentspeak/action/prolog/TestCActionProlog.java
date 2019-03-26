@@ -29,7 +29,6 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.lightjason.agentspeak.agent.IAgent;
-import org.lightjason.agentspeak.common.CPath;
 import org.lightjason.agentspeak.language.CLiteral;
 import org.lightjason.agentspeak.language.CRawTerm;
 import org.lightjason.agentspeak.language.ITerm;
@@ -258,21 +257,14 @@ public final class TestCActionProlog extends IBaseTest
     }
 
     /**
-     * test name and arguments
+     * test arguments
      */
     @Test
-    public void namearguments()
+    public void arguments()
     {
-        Assert.assertEquals( CPath.of( "prolog/plantheory" ), new CPlanTheory().name() );
         Assert.assertEquals( 0, new CPlanTheory().minimalArgumentNumber() );
-
-        Assert.assertEquals( CPath.of( "prolog/solveall" ), new CSolveAll().name() );
         Assert.assertEquals( 1, new CSolveAll().minimalArgumentNumber() );
-
-        Assert.assertEquals( CPath.of( "prolog/solveany" ), new CSolveAny().name() );
         Assert.assertEquals( 1, new CSolveAny().minimalArgumentNumber() );
-
-        Assert.assertEquals( CPath.of( "prolog/theory" ), new CTheory().name() );
         Assert.assertEquals( 0, new CTheory().minimalArgumentNumber() );
     }
 
