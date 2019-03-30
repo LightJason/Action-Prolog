@@ -31,7 +31,7 @@
     <!-- project meta information -->
     <name>LightJason AgentSpeak(L++) - Prolog Action</name>
     <description>AgentSpeak(L++) action for prolog usage</description>
-    <url>https://github.com/LightJason/AgentSpeak</url>
+    <url>https://github.com/LightJason/Java-Action-Prolog</url>
     
     <organization>
         <name>LightJason</name>
@@ -47,13 +47,13 @@
     
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/LightJason/Action-Prolog/issues</url>
+        <url>https://github.com/LightJason/Java-Action-Prolog/issues</url>
     </issueManagement>
     
     <scm>
-        <url>https://github.com/LightJason/Action-Prolog</url>
-        <connection>scm:git:git://github.com:LightJason/Action-Prolog.git</connection>
-        <developerConnection>scm:git:git@github.com:LightJason/Action-Prolog.git</developerConnection>
+        <url>https://github.com/LightJason/Java-Action-Prolog</url>
+        <connection>scm:git:git://github.com:LightJason/Java-Action-Prolog.git</connection>
+        <developerConnection>scm:git:git@github.com:LightJason/Java-Action-Prolog.git</developerConnection>
         <tag>v0.0.1</tag>
     </scm>
     
