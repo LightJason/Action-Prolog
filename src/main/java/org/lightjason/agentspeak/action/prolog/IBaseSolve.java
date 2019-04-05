@@ -78,46 +78,10 @@ public abstract class IBaseSolve extends IBaseAction
     @Nonnull
     @Override
     public final Stream<IFuzzyValue<?>> execute( final boolean p_parallel, @Nonnull final IContext p_context, @Nonnull final List<ITerm> p_argument,
-                                                 @Nonnull final List<ITerm> p_return
-    )
+                                                 @Nonnull final List<ITerm> p_return )
     {
         final List<ITerm> l_arguments = CCommon.flatten( p_argument ).collect( Collectors.toList() );
-
-        final Theory l_theory;
-        try
-        {
-            // beliefs must converted into a struct and converted to a string, because theory class creates an NPE on
-            // appending a struct generated theory and a string generated theory,
-            // see https://bitbucket.org/tuprologteam/tuprolog/issues/18/nullpointer-exception-on-theory-append
-            l_theory = new Theory(
-                p_context.agent()
-                         .beliefbase()
-                         .stream()
-                         .map( CSolveAll::toprologterm )
-                         .map( i -> i.toString() + "." )
-                         .collect( Collectors.joining( "\n" ) )
-                + "\n"
-            );
-        }
-        catch ( final Exception l_exception )
-        {
-            throw new CExecutionIllegalStateException( p_context, l_exception );
-        }
-
-        // add theory objects to the current theory
-        l_arguments.stream()
-                   .filter( i -> i.raw() instanceof Theory )
-                   .forEach( i ->
-                   {
-                       try
-                       {
-                           l_theory.append( i.raw() );
-                       }
-                       catch ( final InvalidTheoryException l_exception )
-                       {
-                           LOGGER.warning( l_exception.getMessage() );
-                       }
-                   } );
+        final Theory l_theory =  totargettheory( p_context, targettheory( p_context ), l_arguments.stream() );
 
         // execute prolog engine with theory
         final SolveInfo[] l_result = l_arguments.stream()
@@ -150,6 +114,61 @@ public abstract class IBaseSolve extends IBaseAction
 
         return p_context.agent().fuzzy().membership().success();
 
+    }
+
+    /**
+     * creates target theory structure based on beliefbase
+     *
+     * @param p_context context
+     * @return target theory for solving
+     */
+    private static Theory targettheory( @Nonnull final IContext p_context )
+    {
+        try
+        {
+            // beliefs must converted into a struct and converted to a string, because theory class creates an NPE on
+            // appending a struct generated theory and a string generated theory,
+            // see https://bitbucket.org/tuprologteam/tuprolog/issues/18/nullpointer-exception-on-theory-append
+            return new Theory(
+                p_context.agent()
+                         .beliefbase()
+                         .stream()
+                         .map( CSolveAll::toprologterm )
+                         .map( i -> i.toString() + "." )
+                         .collect( Collectors.joining( "\n" ) )
+                + "\n"
+            );
+        }
+        catch ( final Exception l_exception )
+        {
+            throw new CExecutionIllegalStateException( p_context, l_exception );
+        }
+    }
+
+    /**
+     * push arguments theory objects to target theory
+     *
+     * @param p_context context
+     * @param p_targettheory target theory
+     * @param p_arguments input arguments (theory objects)
+     * @return target theory for solving
+     */
+    private static Theory totargettheory( @Nonnull final IContext p_context, @Nonnull final Theory p_targettheory, @Nonnull final Stream<ITerm> p_arguments )
+    {
+        p_arguments.filter( i -> i.raw() instanceof Theory )
+                   .forEach( i ->
+                   {
+                       try
+                       {
+                           p_targettheory.append( i.raw() );
+                       }
+                       catch ( final InvalidTheoryException l_exception )
+                       {
+                           throw new CExecutionIllegalStateException( p_context, l_exception );
+                       }
+                   } );
+
+        return p_targettheory;
     }
 
     /**
