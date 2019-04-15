@@ -84,7 +84,7 @@ public final class CTheory extends IBaseAction
             )
         );
 
-        return Stream.of();
+        return Stream.empty();
     }
 
     /**

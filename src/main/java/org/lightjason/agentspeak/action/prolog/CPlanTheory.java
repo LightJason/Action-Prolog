@@ -89,7 +89,7 @@ public final class CPlanTheory extends IBaseAction
                 )
             );
 
-            return Stream.of();
+            return Stream.empty();
         }
         catch ( final InvalidTheoryException l_exception )
         {
