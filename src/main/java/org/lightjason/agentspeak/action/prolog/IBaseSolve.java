@@ -59,8 +59,8 @@ import java.util.stream.Stream;
  * prolog solving structure
  *
  * @todo replace string concatination on belief generating after a new version of the library is published
- * @see https://github.com/bolerio/hgdb/wiki/TuProlog
- * @see https://bitbucket.org/tuprologteam/tuprolog/issues/18/nullpointer-exception-on-theory-append
+ * @see <a href="https://github.com/bolerio/hgdb/wiki/TuProlog"></a>
+ * @see <a href="https://bitbucket.org/tuprologteam/tuprolog/issues/18/nullpointer-exception-on-theory-append"></a>
  */
 public abstract class IBaseSolve extends IBaseAction
 {
@@ -128,7 +128,7 @@ public abstract class IBaseSolve extends IBaseAction
         {
             // beliefs must converted into a struct and converted to a string, because theory class creates an NPE on
             // appending a struct generated theory and a string generated theory,
-            // see https://bitbucket.org/tuprologteam/tuprolog/issues/18/nullpointer-exception-on-theory-append
+            // see <a href="https://bitbucket.org/tuprologteam/tuprolog/issues/18/nullpointer-exception-on-theory-append">Issue - NPE</>
             return new Theory(
                 p_context.agent()
                          .beliefbase()
@@ -210,7 +210,7 @@ public abstract class IBaseSolve extends IBaseAction
      * @return prolog term
      *
      * @todo tuprolog cannot deal with java native objects
-     * @see https://bitbucket.org/tuprologteam/tuprolog/issues/14/object-passing
+     * @see <a href="https://bitbucket.org/tuprologteam/tuprolog/issues/14/object-passing"></a>
      */
     //Checkstyle:OFF:NPathComplexity
     protected static Term toprologterm( @Nonnull final ITerm p_term )
