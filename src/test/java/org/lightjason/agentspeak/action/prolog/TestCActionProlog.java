@@ -24,10 +24,10 @@
 
 package org.lightjason.agentspeak.action.prolog;
 
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.lightjason.agentspeak.agent.IAgent;
 import org.lightjason.agentspeak.language.CLiteral;
 import org.lightjason.agentspeak.language.CRawTerm;
@@ -68,7 +68,7 @@ public final class TestCActionProlog extends IBaseTest
      *
      * @throws Exception is thrown on problems
      */
-    @Before
+    @BeforeEach
     public void initialize() throws Exception
     {
         m_agent = new CAgentGenerator().generatesingle();
@@ -83,7 +83,7 @@ public final class TestCActionProlog extends IBaseTest
     public void solveempty()
     {
         final List<ITerm> l_return = new ArrayList<>();
-        Assert.assertFalse(
+        Assertions.assertFalse(
             execute(
                 new CSolveAll(),
                 false,
@@ -99,7 +99,7 @@ public final class TestCActionProlog extends IBaseTest
     @Test
     public void solveallwithouttheory()
     {
-        Assume.assumeNotNull( m_agent, m_context );
+        Assumptions.assumeTrue( Objects.nonNull( m_agent ) && Objects.nonNull( m_context ) );
 
         final List<ITerm> l_return = new ArrayList<>();
 
@@ -109,7 +109,7 @@ public final class TestCActionProlog extends IBaseTest
             CLiteral.of( "l", CRawTerm.of( new HashSet<>() ) )
         );
 
-        Assert.assertTrue(
+        Assertions.assertTrue(
             execute(
                 new CSolveAll(),
                 false,
@@ -120,11 +120,11 @@ public final class TestCActionProlog extends IBaseTest
         );
 
 
-        Assert.assertEquals( 4, l_return.size() );
-        Assert.assertEquals( 5.0, l_return.get( 0 ).<Number>raw() );
-        Assert.assertEquals( 5.0, l_return.get( 1 ).<Number>raw() );
-        Assert.assertEquals( "hello world", l_return.get( 2 ).raw() );
-        Assert.assertEquals( "[]", l_return.get( 3 ).raw() );
+        Assertions.assertEquals( 4, l_return.size() );
+        Assertions.assertEquals( 5.0, l_return.get( 0 ).<Number>raw() );
+        Assertions.assertEquals( 5.0, l_return.get( 1 ).<Number>raw() );
+        Assertions.assertEquals( "hello world", l_return.get( 2 ).raw() );
+        Assertions.assertEquals( "[]", l_return.get( 3 ).raw() );
     }
 
     /**
@@ -133,7 +133,7 @@ public final class TestCActionProlog extends IBaseTest
     @Test
     public void solveallwiththeory()
     {
-        Assume.assumeNotNull( m_agent, m_context );
+        Assumptions.assumeTrue( Objects.nonNull( m_agent ) && Objects.nonNull( m_context ) );
 
         final List<ITerm> l_return = new ArrayList<>();
 
@@ -149,7 +149,7 @@ public final class TestCActionProlog extends IBaseTest
             l_return
         );
 
-        Assert.assertTrue(
+        Assertions.assertTrue(
             execute(
                 new CSolveAll(),
                 false,
@@ -159,8 +159,8 @@ public final class TestCActionProlog extends IBaseTest
             )
         );
 
-        Assert.assertEquals( 2, l_return.size() );
-        Assert.assertEquals( 10.0, l_return.get( 1 ).<Number>raw() );
+        Assertions.assertEquals( 2, l_return.size() );
+        Assertions.assertEquals( 10.0, l_return.get( 1 ).<Number>raw() );
     }
 
 
@@ -170,7 +170,7 @@ public final class TestCActionProlog extends IBaseTest
     @Test
     public void solveanywithouttheory()
     {
-        Assume.assumeNotNull( m_agent, m_context );
+        Assumptions.assumeTrue( Objects.nonNull( m_agent ) && Objects.nonNull( m_context ) );
 
         final List<ITerm> l_return = new ArrayList<>();
 
@@ -178,7 +178,7 @@ public final class TestCActionProlog extends IBaseTest
             CLiteral.of( "a", CRawTerm.of( 8 ) )
         );
 
-        Assert.assertTrue(
+        Assertions.assertTrue(
             execute(
                 new CSolveAny(),
                 false,
@@ -188,8 +188,8 @@ public final class TestCActionProlog extends IBaseTest
             )
         );
 
-        Assert.assertEquals( 1, l_return.size() );
-        Assert.assertEquals( 8.0, l_return.get( 0 ).<Number>raw() );
+        Assertions.assertEquals( 1, l_return.size() );
+        Assertions.assertEquals( 8.0, l_return.get( 0 ).<Number>raw() );
     }
 
     /**
@@ -200,14 +200,14 @@ public final class TestCActionProlog extends IBaseTest
     @Test
     public void plantheory() throws Exception
     {
-        Assume.assumeNotNull( m_agent, m_context );
+        Assumptions.assumeTrue( Objects.nonNull( m_agent ) && Objects.nonNull( m_context ) );
 
         final List<ITerm> l_return = new ArrayList<>();
 
         m_agent.plans()
                .put( CTrigger.of( ITrigger.EType.ADDGOAL, CLiteral.parse( "foobar(X)" ) ), CPlanStatistic.of( IPlan.EMPTY ) );
 
-        Assert.assertTrue(
+        Assertions.assertTrue(
                 execute(
                         new CPlanTheory(),
                         false,
@@ -217,8 +217,8 @@ public final class TestCActionProlog extends IBaseTest
                 )
         );
 
-        Assert.assertEquals( 1, l_return.size() );
-        Assert.assertEquals( "foobar[X()].", l_return.get( 0 ).raw().toString().trim() );
+        Assertions.assertEquals( 1, l_return.size() );
+        Assertions.assertEquals( "foobar[X()].", l_return.get( 0 ).raw().toString().trim() );
     }
 
     /**
@@ -227,7 +227,7 @@ public final class TestCActionProlog extends IBaseTest
     @Test
     public void typeconvert()
     {
-        Assume.assumeNotNull( m_agent, m_context );
+        Assumptions.assumeTrue( Objects.nonNull( m_agent ) && Objects.nonNull( m_context ) );
 
         final List<ITerm> l_return = new ArrayList<>();
 
@@ -238,7 +238,7 @@ public final class TestCActionProlog extends IBaseTest
             CLiteral.of( "doubledata", CRawTerm.of( 10D ) )
         );
 
-        Assert.assertTrue(
+        Assertions.assertTrue(
             execute(
                 new CSolveAll(),
                 false,
@@ -249,11 +249,11 @@ public final class TestCActionProlog extends IBaseTest
         );
 
 
-        Assert.assertEquals( 4, l_return.size() );
-        Assert.assertEquals( 4.0, l_return.get( 0 ).<Number>raw() );
-        Assert.assertEquals( 6.0, l_return.get( 1 ).<Number>raw() );
-        Assert.assertEquals( 8.0, l_return.get( 2 ).<Number>raw() );
-        Assert.assertEquals( 10.0, l_return.get( 3 ).<Number>raw() );
+        Assertions.assertEquals( 4, l_return.size() );
+        Assertions.assertEquals( 4.0, l_return.get( 0 ).<Number>raw() );
+        Assertions.assertEquals( 6.0, l_return.get( 1 ).<Number>raw() );
+        Assertions.assertEquals( 8.0, l_return.get( 2 ).<Number>raw() );
+        Assertions.assertEquals( 10.0, l_return.get( 3 ).<Number>raw() );
     }
 
     /**
@@ -262,10 +262,10 @@ public final class TestCActionProlog extends IBaseTest
     @Test
     public void arguments()
     {
-        Assert.assertEquals( 0, new CPlanTheory().minimalArgumentNumber() );
-        Assert.assertEquals( 1, new CSolveAll().minimalArgumentNumber() );
-        Assert.assertEquals( 1, new CSolveAny().minimalArgumentNumber() );
-        Assert.assertEquals( 0, new CTheory().minimalArgumentNumber() );
+        Assertions.assertEquals( 0, new CPlanTheory().minimalArgumentNumber() );
+        Assertions.assertEquals( 1, new CSolveAll().minimalArgumentNumber() );
+        Assertions.assertEquals( 1, new CSolveAny().minimalArgumentNumber() );
+        Assertions.assertEquals( 0, new CTheory().minimalArgumentNumber() );
     }
 
 }
