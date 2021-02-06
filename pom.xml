@@ -80,26 +80,6 @@
             </roles>
         </developer>
     </developers>
-    
-    <contributors>
-        <contributor>
-            <name>Malte Aschermann</name>
-            <email>malte@lightjason.org</email>
-            <timezone>Europe/Berlin</timezone>
-            <roles>
-                <role>testing</role>
-            </roles>
-        </contributor>
-        
-        <contributor>
-            <name>Sophie Denissen</name>
-            <email>sophie@lightjason.org</email>
-            <timezone>Europe/Berlin</timezone>
-            <roles>
-                <role>testing</role>
-            </roles>
-        </contributor>
-    </contributors>
 
 
     <!-- project build configuration -->
