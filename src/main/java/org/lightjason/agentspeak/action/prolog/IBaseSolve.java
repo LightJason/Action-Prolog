@@ -219,7 +219,7 @@ public abstract class IBaseSolve extends IBaseAction
             return new Var( p_term.functor() );
 
         if ( p_term instanceof ILiteral && !p_term.<ILiteral>term().emptyValues() )
-            return new Struct( p_term.functor(), p_term.<ILiteral>term().orderedvalues().map( CSolveAll::toprologterm ).toArray( Term[]::new ) );
+            return new Struct( p_term.fqnfunctor().path( "" ), p_term.<ILiteral>term().orderedvalues().map( CSolveAll::toprologterm ).toArray( Term[]::new ) );
 
         if ( p_term instanceof IRawTerm<?> && p_term.<IRawTerm<?>>term().valueassignableto( Integer.class ) )
             return new alice.tuprolog.Int( p_term.raw() );
